@@ -1,7 +1,11 @@
 package org.br.mineradora.message;
 
+import org.br.mineradora.dto.ProposalDto;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -15,8 +19,7 @@ public class KafkaClient {
 
     public void sendNewKafkaEvent(ProposalDto proposalDto) {
         LOG.info("Enviando nova proposta para tópico kafka");
-
-        proposalRequestEmiter.send(proposalDto)
+        proposalRequestEmiter.send(proposalDto).toCompletableFuture().join();
     }
      
 }
