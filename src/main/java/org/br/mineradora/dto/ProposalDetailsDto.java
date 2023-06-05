@@ -1,6 +1,7 @@
 package org.br.mineradora.dto;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class ProposalDetailsDto {
     
-    private String proposalId;
+    private UUID proposalId;
 
     private String customer;
 

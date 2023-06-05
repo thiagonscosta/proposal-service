@@ -1,6 +1,8 @@
 package org.br.mineradora.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +19,12 @@ public class ProposalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     private String customer;
 
     @Column(name = "price_tone")
-    private BigDecimal priceTone;
+    private BigDecimal priceTonne;
 
     private Integer tonnes;
 
@@ -30,4 +32,6 @@ public class ProposalEntity {
 
     @Column(name = "proposal_validity_days")
     private Integer proposalValidityDays;
+
+    private Date createdAt;
 }

@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class KafkaClient {
+public class KafkaEvent {
 
-    private final Logger LOG = LoggerFactory.getLogger(KafkaClient.class);
+    private final Logger LOG = LoggerFactory.getLogger(KafkaEvent.class);
 
     @Channel("proposal")
     Emitter<ProposalDto> proposalRequestEmiter; 
