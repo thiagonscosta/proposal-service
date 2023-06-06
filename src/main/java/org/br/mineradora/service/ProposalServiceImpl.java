@@ -3,25 +3,26 @@ package org.br.mineradora.service;
 import java.util.Date;
 import java.util.UUID;
 
-
 import org.br.mineradora.dto.ProposalDetailsDto;
 import org.br.mineradora.dto.ProposalDto;
 import org.br.mineradora.entity.ProposalEntity;
 import org.br.mineradora.message.KafkaEvent;
 import org.br.mineradora.repository.ProposalRepository;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
-public class ProposalServiceImpl implements ProposalService {
-
-    @jakarta.inject.Inject 
-    ProposalRepository proposalRepository;
+@ApplicationScoped
+public class ProposalServiceImpl {
 
     @Inject 
-    KafkaEvent kafkaEvent;
+    ProposalRepository proposalRepository;
 
-    @Override
+    // @Inject 
+    // KafkaEvent kafkaEvent;
+
+    // @Override
     public ProposalDetailsDto findFullProposal(UUID id) {
        ProposalEntity proposal = proposalRepository.findById(id);
        return ProposalDetailsDto.builder()
@@ -34,20 +35,20 @@ public class ProposalServiceImpl implements ProposalService {
         .build();
     }
 
-    @Override
+    // @Override
     @Transactional
     public void createNewProposal(ProposalDetailsDto data) {
         ProposalDto proposal = buildAndSaveNewProposal(data);
-        kafkaEvent.sendNewKafkaEvent(proposal);
+        // kafkaEvent.sendNewKafkaEvent(proposal);
     }
     
-    @Override
+    // @Override
     @Transactional
     public void removeProposal(UUID id) {
        proposalRepository.deleteById(id);
     }
 
-    @Transactional
+    // @Transactional
     private ProposalDto buildAndSaveNewProposal(ProposalDetailsDto data) {
         try {
             ProposalEntity proposal = new ProposalEntity();
