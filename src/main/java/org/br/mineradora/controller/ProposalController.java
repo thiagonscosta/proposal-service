@@ -3,6 +3,7 @@ package org.br.mineradora.controller;
 import java.util.UUID;
 
 import org.br.mineradora.dto.ProposalDetailsDto;
+import org.br.mineradora.dto.ProposalDto;
 import org.br.mineradora.service.ProposalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,10 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/api/proposal")
 public class ProposalController {
-    
+
     private final Logger LOG = LoggerFactory.getLogger(ProposalController.class);
 
-    @Inject 
+    @Inject
     ProposalService proposalService;
 
     @GET
@@ -29,11 +30,11 @@ public class ProposalController {
         return proposalService.findFullProposal(id);
     }
 
-    @POST 
+    @POST
     public Response createProposal(ProposalDetailsDto data) {
         try {
-            proposalService.createNewProposal(data);
-            return Response.ok().build();
+            ProposalDto response = proposalService.createNewProposal(data);
+            return Response.ok().entity(response).build();
         } catch (Exception e) {
             return Response.serverError().build();
         }

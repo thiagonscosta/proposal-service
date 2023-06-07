@@ -14,12 +14,12 @@ public class KafkaEvent {
 
     private final Logger LOG = LoggerFactory.getLogger(KafkaEvent.class);
 
-    // @Channel("proposal")
-    // Emitter<ProposalDto> proposalRequestEmiter; 
+    @Channel("proposal")
+    Emitter<ProposalDto> proposalRequestEmiter; 
 
-    // public void sendNewKafkaEvent(ProposalDto proposalDto) {
-    //     LOG.info("Enviando nova proposta para tópico kafka");
-    //     proposalRequestEmiter.send(proposalDto).toCompletableFuture().join();
-    // }
+    public void sendNewKafkaEvent(ProposalDto proposalDto) {
+        LOG.info("Enviando nova proposta para tópico kafka");
+        proposalRequestEmiter.send(proposalDto).toCompletableFuture().join();
+    }
      
 }

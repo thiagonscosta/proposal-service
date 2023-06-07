@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity()
+@Entity
 @Data 
 @NoArgsConstructor
 @Table(name = "proposal")
@@ -25,7 +25,7 @@ public class ProposalEntity {
 
     private String customer;
 
-    @Column(name = "price_tone")
+    @Column(name = "price_tonne")
     private BigDecimal priceTonne;
 
     private Integer tonnes;

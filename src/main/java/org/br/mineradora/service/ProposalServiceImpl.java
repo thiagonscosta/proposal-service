@@ -14,15 +14,15 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class ProposalServiceImpl {
+public class ProposalServiceImpl implements ProposalService {
 
     @Inject 
     ProposalRepository proposalRepository;
 
-    // @Inject 
-    // KafkaEvent kafkaEvent;
+    @Inject 
+    KafkaEvent kafkaEvent;
 
-    // @Override
+    @Override
     public ProposalDetailsDto findFullProposal(UUID id) {
        ProposalEntity proposal = proposalRepository.findById(id);
        return ProposalDetailsDto.builder()
@@ -35,14 +35,15 @@ public class ProposalServiceImpl {
         .build();
     }
 
-    // @Override
+    @Override
     @Transactional
-    public void createNewProposal(ProposalDetailsDto data) {
+    public ProposalDto createNewProposal(ProposalDetailsDto data) {
         ProposalDto proposal = buildAndSaveNewProposal(data);
-        // kafkaEvent.sendNewKafkaEvent(proposal);
+        kafkaEvent.sendNewKafkaEvent(proposal);
+        return proposal;
     }
     
-    // @Override
+    @Override
     @Transactional
     public void removeProposal(UUID id) {
        proposalRepository.deleteById(id);
@@ -62,7 +63,7 @@ public class ProposalServiceImpl {
             proposalRepository.persist(proposal);
 
             return ProposalDto.builder()
-                .proposalId(proposalRepository.findByCustomer(proposal.getCustomer()).get().getId())
+                .proposalId(proposal.getId())
                 .priceTonne(proposal.getPriceTonne())
                 .customer(proposal.getCustomer())
                 .build();

@@ -3,6 +3,8 @@ package org.br.mineradora.dto;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.br.mineradora.entity.ProposalEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
